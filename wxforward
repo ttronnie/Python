@@ -1,20 +1,20 @@
 from wxpy import *
 
-bot = Bot(cache_path = True)
+bot = Bot(cache_path=True)
 
+listen_group1 = ensure_one(bot.groups().search('内部优惠券禁止闲聊'))
+listen_user1 = ensure_one(bot.friends().search('不可以惹仙女生气'))
 
-listen_group = ensure_one(bot.groups().search('🈲禁言上车群🐱🐱'))
-listen_friend = ensure_one(listen_group.search('曼尼'))
-target_group = bot.groups().search('啦啦啦啦啦')[0]
+target_group1 = bot.groups().search('禁言猫咪开车群')[0]
+target_group2 = bot.groups().search('猫咪用品薅羊毛分享群')[0]
 
-print('监听的群和用户分别为：%s,%s' %(listen_group,listen_friend))
-print('目标群分别为：%s' %(target_group))
+print('监听群和用户：%s %s' %(listen_group1,listen_user1))
+print('目标群：%s' %(target_group1))
 
-@bot.register(listen_group)
+@bot.register(listen_group1)
 def group_msg(msg):
-    ##print('aaace测试:%s,%s' %(msg,bot.self))
-    if msg.member == listen_friend:
-        msg.forward(target_group)
+    if msg.member == listen_user1:
+        msg.forward(target_group1)
+        msg.forward(target_group2)
 
 embed()
-
